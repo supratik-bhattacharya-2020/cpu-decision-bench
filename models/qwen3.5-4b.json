@@ -1,0 +1,18 @@
+{
+  "id": "qwen3.5-4b-q4_k_m",
+  "family": "Qwen3.5",
+  "parameters_billion": 4.0,
+  "upstream": "Qwen/Qwen3.5-4B",
+  "license": "Apache-2.0",
+  "access": "public",
+  "benchmark_context_tokens": 4096,
+  "alias_compatibility": {"status": "verified", "detail": "A-L were single tokens at the answer boundary on smoke-v1.", "verified_on": "2026-09-24", "suite_sha256": "cf1e522f6ce0fba36417d634cb51131beb550672c8641418c66f9a904d8f5440"},
+  "gguf": {
+    "repository": "bartowski/Qwen_Qwen3.5-4B-GGUF",
+    "revision": "4168f45a16a1290d65a4ec0fa312ae917a4c15d6",
+    "filename": "Qwen_Qwen3.5-4B-Q4_K_M.gguf",
+    "bytes": 3013027808,
+    "sha256": "13c16f426047e2de38cd075bdade4a7bcbc8c774384876f677740cda65f8a983",
+    "quantization": "Q4_K_M"
+  }
+}

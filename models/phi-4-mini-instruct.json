@@ -1,0 +1,18 @@
+{
+  "id": "phi-4-mini-instruct-q4_k_m",
+  "family": "Phi-4 Mini",
+  "parameters_billion": 3.8,
+  "upstream": "microsoft/Phi-4-mini-instruct",
+  "license": "MIT",
+  "access": "public",
+  "benchmark_context_tokens": 4096,
+  "alias_compatibility": {"status": "verified", "detail": "A-L were single tokens at the answer boundary on smoke-v1.", "verified_on": "2026-09-24", "suite_sha256": "cf1e522f6ce0fba36417d634cb51131beb550672c8641418c66f9a904d8f5440"},
+  "gguf": {
+    "repository": "bartowski/microsoft_Phi-4-mini-instruct-GGUF",
+    "revision": "7ff82c2aaa4dde30121698a973765f39be5288c0",
+    "filename": "microsoft_Phi-4-mini-instruct-Q4_K_M.gguf",
+    "bytes": 2491874688,
+    "sha256": "01999f17c39cc3074afae5e9c539bc82d45f2dd7faa3917c66cbef76fce8c0c2",
+    "quantization": "Q4_K_M"
+  }
+}

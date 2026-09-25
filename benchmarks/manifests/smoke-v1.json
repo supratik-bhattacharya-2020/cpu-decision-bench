@@ -1,0 +1,11 @@
+{
+  "id": "smoke-v1",
+  "status": "frozen",
+  "rows": 7,
+  "benchmark_file": {
+    "path": "benchmarks/smoke-v1.jsonl",
+    "bytes": 8077,
+    "sha256": "cf1e522f6ce0fba36417d634cb51131beb550672c8641418c66f9a904d8f5440"
+  },
+  "selection": "First deterministic core-v1 row from JevBench, BANKING77, BoolQ, WANLI, MASSIVE, MMLU-Pro, and the authored originals."
+}

@@ -1,0 +1,59 @@
+{
+  "id": "core-v1",
+  "status": "frozen-before-six-model-run",
+  "rows": 1071,
+  "benchmark_file": {
+    "path": "benchmarks/core-v1.jsonl",
+    "bytes": 1588828,
+    "sha256": "d7f2bd41760637ecfe155438857be248e759c3c719750fafc6655598749a14ca"
+  },
+  "sources": {
+    "jevbench": {
+      "rows": 231,
+      "revision": "2fa63fa3226cb369795525ed011800f57dcbd894",
+      "files": {
+        "easy.jsonl": "231df3c2c8e88a1a8c137ebe85de96ba70fabd330849098ac7b3c52c70b7172b",
+        "original.jsonl": "5c2414edb3006b8bfcb70fda433f0f9ca015759433849f8d3104328a1f7c4180",
+        "hard.jsonl": "89e9e6becb33ed88c1de7d42dcc87531b2fb64cfaef4e1986faf7c37b3f80ebb"
+      },
+      "license": "MIT"
+    },
+    "banking77": {
+      "rows": 120,
+      "revision": "57ec275d8078af65b7731c2a98be812d844a6d6b",
+      "file_sha256": "d12d6e3bc4c3103966ae786dc435913c0c563dfa328f5a3646d0e62cfeeb474d",
+      "license": "CC-BY-4.0"
+    },
+    "boolq": {
+      "rows": 200,
+      "revision": "35b264d03638db9f4ce671b711558bf7ff0f80d5",
+      "file_sha256": "52355d11524b4b874a9b9dcc278feb10f672d52c4f4eff9872e695ede59820f8",
+      "license": "CC-BY-SA-3.0"
+    },
+    "wanli": {
+      "rows": 150,
+      "revision": "61c95318fd71c55b6ba355d76253254615f387ec",
+      "file_sha256": "4276e0af7fcdf657d1ab7beb54eaf025fda592a76c9ee86b63b7871953fc74fd",
+      "license": "CC-BY-4.0"
+    },
+    "massive": {
+      "rows": 120,
+      "revision": "ff6bd8e4b27c3543e4f8fe2108f32bb95a6f8740",
+      "file_sha256": "4cba5faa11c71437928e17cb1b9b3d8b8e727e7ea363a3a9a8045e19c0491577",
+      "license": "CC-BY-4.0"
+    },
+    "mmlu_pro": {
+      "rows": 70,
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be",
+      "file_sha256": "0e24a191921c2f453518a537a8b2117bd137e7714d4ef1565e9ba06c1ecb9ad8",
+      "license": "MIT"
+    },
+    "owned": {
+      "rows": 180,
+      "base_cases": 36,
+      "base_file": "benchmarks/owned/base36.jsonl",
+      "base_sha256": "4e10b7d75dace2195017230a6c02a63225f14603c15ee21e390b54803ed6a6ab",
+      "license": "MIT"
+    }
+  }
+}

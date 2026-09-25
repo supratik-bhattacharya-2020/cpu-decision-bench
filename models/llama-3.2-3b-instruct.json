@@ -1,0 +1,18 @@
+{
+  "id": "llama-3.2-3b-instruct-q4_k_m",
+  "family": "Llama 3.2",
+  "parameters_billion": 3.2,
+  "upstream": "meta-llama/Llama-3.2-3B-Instruct",
+  "license": "Llama 3.2 Community License",
+  "access": "license acceptance may be required",
+  "benchmark_context_tokens": 4096,
+  "alias_compatibility": {"status": "verified", "detail": "A-L were single tokens at the answer boundary on smoke-v1.", "verified_on": "2026-09-24", "suite_sha256": "cf1e522f6ce0fba36417d634cb51131beb550672c8641418c66f9a904d8f5440"},
+  "gguf": {
+    "repository": "bartowski/Llama-3.2-3B-Instruct-GGUF",
+    "revision": "5ab33fa94d1d04e903623ae72c95d1696f09f9e8",
+    "filename": "Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+    "bytes": 2019377696,
+    "sha256": "6c1a2b41161032677be168d354123594c0e6e67d2b9227c84f296ad037c728ff",
+    "quantization": "Q4_K_M"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "gemma-3-4b-it-q4_k_m",
+  "family": "Gemma 3",
+  "parameters_billion": 4.0,
+  "upstream": "google/gemma-3-4b-it",
+  "license": "Gemma",
+  "access": "license acceptance may be required",
+  "benchmark_context_tokens": 4096,
+  "alias_compatibility": {"status": "verified", "detail": "A-L were single tokens at the answer boundary on smoke-v1.", "verified_on": "2026-09-24", "suite_sha256": "cf1e522f6ce0fba36417d634cb51131beb550672c8641418c66f9a904d8f5440"},
+  "gguf": {
+    "repository": "unsloth/gemma-3-4b-it-GGUF",
+    "revision": "5a3566e716d80f709ed7b79817eaf7733d2a1fce",
+    "filename": "gemma-3-4b-it-Q4_K_M.gguf",
+    "bytes": 2489894016,
+    "sha256": "04a43a22e8d2003deda5acc262f68ec1005fa76c735a9962a8c77042a74a7d19",
+    "quantization": "Q4_K_M"
+  }
+}

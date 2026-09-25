@@ -1,0 +1,18 @@
+{
+  "id": "granite-3.3-2b-instruct-q4_k_m",
+  "family": "Granite 3.3",
+  "parameters_billion": 2.5,
+  "upstream": "ibm-granite/granite-3.3-2b-instruct",
+  "license": "Apache-2.0",
+  "access": "public",
+  "benchmark_context_tokens": 4096,
+  "alias_compatibility": {"status": "verified", "detail": "A-L were single tokens at the answer boundary on smoke-v1.", "verified_on": "2026-09-24", "suite_sha256": "cf1e522f6ce0fba36417d634cb51131beb550672c8641418c66f9a904d8f5440"},
+  "gguf": {
+    "repository": "ibm-granite/granite-3.3-2b-instruct-GGUF",
+    "revision": "7cdf86ccd1f1bb3491c9b7017b033f2e51367397",
+    "filename": "granite-3.3-2b-instruct-Q4_K_M.gguf",
+    "bytes": 1545303328,
+    "sha256": "ac71e9e32c0bea919b409c5918f69ca74339854b0319c5065e4e9fb6d95c4852",
+    "quantization": "Q4_K_M"
+  }
+}

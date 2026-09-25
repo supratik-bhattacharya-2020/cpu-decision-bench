@@ -1,0 +1,79 @@
+{
+  "title": "DecisionBench smoke-v1",
+  "warning": "Smoke results only; do not use as headline benchmark claims.",
+  "benchmark_sha256": "cf1e522f6ce0fba36417d634cb51131beb550672c8641418c66f9a904d8f5440",
+  "models": [
+    {
+      "model_id": "gemma-3-4b-it-q4_k_m",
+      "gguf_sha256": "04a43a22e8d2003deda5acc262f68ec1005fa76c735a9962a8c77042a74a7d19",
+      "rows": 7,
+      "coverage": 1.0,
+      "accuracy": 0.7142857142857143,
+      "macro_f1": 0.6666666666666666,
+      "allowed_token_mass": 0.9999952092834002,
+      "p50_seconds": 8.226206700084731,
+      "peak_process_rss_bytes": 5792636928.0,
+      "load_seconds": 3.7456509000621736
+    },
+    {
+      "model_id": "granite-3.3-2b-instruct-q4_k_m",
+      "gguf_sha256": "ac71e9e32c0bea919b409c5918f69ca74339854b0319c5065e4e9fb6d95c4852",
+      "rows": 7,
+      "coverage": 1.0,
+      "accuracy": 0.5714285714285714,
+      "macro_f1": 0.5238095238095238,
+      "allowed_token_mass": 0.7584150481470321,
+      "p50_seconds": 5.262144600041211,
+      "peak_process_rss_bytes": 3380428800.0,
+      "load_seconds": 2.741057700011879
+    },
+    {
+      "model_id": "llama-3.2-3b-instruct-q4_k_m",
+      "gguf_sha256": "6c1a2b41161032677be168d354123594c0e6e67d2b9227c84f296ad037c728ff",
+      "rows": 7,
+      "coverage": 1.0,
+      "accuracy": 0.7142857142857143,
+      "macro_f1": 0.6666666666666666,
+      "allowed_token_mass": 0.9998716111165532,
+      "p50_seconds": 7.9787335998844355,
+      "peak_process_rss_bytes": 4551106560.0,
+      "load_seconds": 2.9712644999381155
+    },
+    {
+      "model_id": "minicpm5-2b-q4_k_m",
+      "gguf_sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+      "rows": 7,
+      "coverage": 1.0,
+      "accuracy": 0.8571428571428571,
+      "macro_f1": 0.8571428571428571,
+      "allowed_token_mass": 0.9768206106542293,
+      "p50_seconds": 5.230380400083959,
+      "peak_process_rss_bytes": 3201413120.0,
+      "load_seconds": 2.2400671001523733
+    },
+    {
+      "model_id": "phi-4-mini-instruct-q4_k_m",
+      "gguf_sha256": "01999f17c39cc3074afae5e9c539bc82d45f2dd7faa3917c66cbef76fce8c0c2",
+      "rows": 7,
+      "coverage": 1.0,
+      "accuracy": 0.8571428571428571,
+      "macro_f1": 0.8571428571428571,
+      "allowed_token_mass": 0.9156882226961273,
+      "p50_seconds": 9.572050499962643,
+      "peak_process_rss_bytes": 5284704256.0,
+      "load_seconds": 2.8402602998539805
+    },
+    {
+      "model_id": "qwen3.5-4b-q4_k_m",
+      "gguf_sha256": "13c16f426047e2de38cd075bdade4a7bcbc8c774384876f677740cda65f8a983",
+      "rows": 7,
+      "coverage": 1.0,
+      "accuracy": 0.8571428571428571,
+      "macro_f1": 0.8571428571428571,
+      "allowed_token_mass": 0.9990648879367391,
+      "p50_seconds": 10.61659360001795,
+      "peak_process_rss_bytes": 5631827968.0,
+      "load_seconds": 3.2060879999771714
+    }
+  ]
+}
