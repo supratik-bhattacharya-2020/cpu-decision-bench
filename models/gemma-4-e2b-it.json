@@ -11,8 +11,10 @@
   "access": "public",
   "benchmark_context_tokens": 4096,
   "alias_compatibility": {
-    "status": "unverified",
-    "detail": "Not benchmarked yet. Requires local text-only GGUF alias and scoring checks."
+    "status": "verified",
+    "detail": "A-L were single tokens at the answer boundary on smoke-v1. All 7 smoke rows and 1,071 core-v1 rows produced valid CPU predictions.",
+    "verified_on": "2026-09-28",
+    "suite_sha256": "cf1e522f6ce0fba36417d634cb51131beb550672c8641418c66f9a904d8f5440"
   },
   "gguf": {
     "repository": "google/gemma-4-E2B-it-qat-q4_0-gguf",

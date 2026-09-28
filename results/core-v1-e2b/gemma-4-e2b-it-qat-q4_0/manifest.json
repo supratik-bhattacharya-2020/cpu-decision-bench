@@ -1,0 +1,48 @@
+{
+  "schema_version": 2,
+  "summary_version": 2,
+  "status": "complete",
+  "started_at": "2026-09-28T07:51:59.154926+00:00",
+  "benchmark": {
+    "path": "benchmarks\\core-v1.jsonl",
+    "sha256": "d7f2bd41760637ecfe155438857be248e759c3c719750fafc6655598749a14ca",
+    "rows": 1071
+  },
+  "model": {
+    "id": "gemma-4-e2b-it-qat-q4_0",
+    "gguf_file": "gemma-4-E2B_q4_0-it.gguf",
+    "gguf_bytes": 3349516256,
+    "gguf_sha256": "fa401b55b07ee70a54c6dae3903c783a6e65064312529ea57175cb5f8dec6634",
+    "threads": 4,
+    "context_tokens": 4096,
+    "n_gpu_layers": 0,
+    "chat_format": "chat_template.default",
+    "prompt_rendering": "gguf-template",
+    "benchmark_date": "2026-09-24",
+    "load_seconds": 3.73312190012075,
+    "process_rss_after_load_bytes": 2360188928,
+    "prompt_version": "decisionbench-choice-v1",
+    "instruction_sha256": "0c306d1686a910ad2eae580a019d1f05aa777dff31ad02b27432730caca173ec",
+    "implementation_sha256": "3292274670fb274199fb7273a933c7314d54b378f061189b22c487aa442c2a68"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "system": "Windows",
+    "os_version": "10.0.26200",
+    "machine": "AMD64",
+    "processor": "AMD64 Family 25 Model 1 Stepping 1, AuthenticAMD",
+    "logical_cpus": 8,
+    "physical_cpus": 4,
+    "total_memory_bytes": 34306093056,
+    "packages": {
+      "llama-cpp-python": "0.3.35",
+      "numpy": "2.2.6",
+      "psutil": "7.1.0",
+      "Jinja2": "3.1.6"
+    },
+    "llama_cpp_build": "CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | "
+  },
+  "performance_status": "uncontrolled; diagnostic timing and memory only",
+  "completed_at": "2026-09-28T12:31:40.663385+00:00",
+  "prediction_rows": 1071
+}

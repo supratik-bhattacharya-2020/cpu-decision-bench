@@ -26,14 +26,17 @@ The frozen core v1 suite has 1,071 rows:
 - four robustness variants for each authored case, giving 180 authored rows.
 
 The active lineup is Qwen3.5 4B, Gemma 3 4B, **Gemma 4 E2B**, Phi-4 Mini,
-Llama 3.2 3B, and MiniCPM5. E2B has no results yet. Its official QAT Q4_0 artifact
+Llama 3.2 3B, and MiniCPM5. E2B's official QAT Q4_0 artifact
 is different from the other models' Q4_K_M builds. E2B describes effective size,
 not its total checkpoint parameter count. Exact GGUF revisions and hashes are
 in `models/`. Granite is retired; its manifest and original results remain
 available as historical evidence. E4B is not in scope.
 
-Published results are preliminary. The full 1,071-row matrix is still running
-and is not included in the published evidence catalogue.
+The full core v1 matrix completed on September 28, 2026: all six active models
+produced valid predictions for all 1,071 rows, totaling 6,426 decisions. Complete
+row-level evidence and the combined report are included in the publication
+catalogue. This remains an exploratory quality study, not a controlled speed
+comparison or a direct evaluation against Jev.
 
 ## Metrics
 
@@ -74,21 +77,51 @@ and is not included in the published evidence catalogue.
 All reported probabilities are conditional on the declared option aliases.
 They are not automatically real-world confidence.
 
+## Full core v1 results
+
+Each cell is **correct answers / all declared rows for that task**. A larger
+fraction is better. Coverage is 1.000 for every active model on every task:
+there were no runtime-error or invalid-prediction rows, not zero wrong answers.
+
+| Task | Gemma 3 4B | Gemma 4 E2B | Llama 3.2 3B | MiniCPM5 2B | Phi-4 Mini | Qwen3.5 4B |
+|---|---:|---:|---:|---:|---:|---:|
+| JevBench easy | 48/48 | 48/48 | 44/48 | 47/48 | 48/48 | 48/48 |
+| JevBench original | 57/72 | 56/72 | 36/72 | 50/72 | 50/72 | 62/72 |
+| JevBench hard | 40/111 | 49/111 | 43/111 | 46/111 | 56/111 | 61/111 |
+| BANKING77 subset | 92/120 | 92/120 | 92/120 | 90/120 | 97/120 | 98/120 |
+| BoolQ subset | 150/200 | 166/200 | 140/200 | 170/200 | 166/200 | 177/200 |
+| WANLI subset | 59/150 | 65/150 | 50/150 | 73/150 | 86/150 | 101/150 |
+| MASSIVE subset | 94/120 | 101/120 | 88/120 | 91/120 | 94/120 | 106/120 |
+| MMLU-Pro subset | 22/70 | 18/70 | 12/70 | 25/70 | 22/70 | 37/70 |
+| Authored robustness (exploratory) | 152/180 | 155/180 | 133/180 | 138/180 | 158/180 | 170/180 |
+
+The combined report, including per-task probability metrics and robustness,
+is `results/core-v1-active-six-summary/REPORT.md` with JSON and CSV beside it.
+Raw runs are under `results/core-v1/` and `results/core-v1-e2b/`.
+Granite's already-completed run is kept as historical evidence only, outside
+the active table and the 6,426-decision count.
+
+The subsets are fixed first-in-file selections, not full-dataset scores.
+Authored variants are related and lack confirmed human review. E2B uses a
+different quantization, and older runs lack the newer runtime/implementation
+records. No combined accuracy ranking or controlled speed/RAM claim is made.
+
 ## Smoke status
 
 The seven-row smoke suite checks prompt rendering, alias compatibility, and
-evidence output. The five previously evaluated active models passed all seven
-rows without inference errors; E2B is pending. This is an installation check,
-not a quality or speed ranking. Results are in `results/smoke-v1/`; the current
-report is `results/smoke-v1-summary-r2/REPORT.md`.
+evidence output. All six active models passed all seven rows without inference
+errors. This is an installation check, not a quality or speed ranking.
+Results are in `results/smoke-v1/` and `results/e2b-smoke-v1/`; the current
+combined report is `results/smoke-v1-active-six-summary/REPORT.md`.
 
-## JevBench pilot result
+## Earlier JevBench pilot
 
 Pilot v1 contains 30 fixed public JevBench rows: 10 easy, 10 original, and 10
 hard. These are first-in-file selections, not random or representative samples.
 The original tier has only five paired groups. Counts below mean **correct
 answers / declared rows in that tier**. All five evaluated active models have
 30/30 valid predictions; this small pilot does not establish a winner.
+E2B was not run on this separate pilot; its later full-suite results are above.
 
 | Model | Easy | Original | Hard |
 |---|---:|---:|---:|
@@ -108,12 +141,14 @@ Original evidence is under `results/jevbench-pilot-v1/`; the current report is
 The September 28, 2026 audit found that Git had changed line endings in
 checksummed files. The correction restores the original hashed bytes and tells
 Git to preserve frozen evidence exactly. **No prediction values or gold labels
-were changed or rescored.** Earlier reports remain historical; use the `-r2`
-reports, which exclude Granite and remove mixed-task rankings.
+were changed or rescored.** Earlier reports remain historical. Use the
+`core-v1-active-six-summary` and `smoke-v1-active-six-summary` reports for the
+completed active lineup, and the `jevbench-pilot-v1-summary-r2` report for the
+earlier pilot. These exclude Granite and remove mixed-task rankings.
 
 The frozen BANKING77 subset also had 110 incorrect source-row references.
 `benchmarks/corrections/core-v1-banking77.json` supplies the correct references
-without changing the benchmark used by the ongoing run. New conversions fix
+without changing the benchmark used by the completed runs. New conversions fix
 the references and therefore must use a new output path.
 
 The authored cases are 36 bases, not 180 independent examples. Human review is

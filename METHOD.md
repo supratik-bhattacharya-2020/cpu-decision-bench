@@ -82,6 +82,25 @@ BANKING77 and MASSIVE each have more than 26 intent classes. Core v1 uses 12
 frozen intents from each because the alias contract supports at most 26 options.
 This limit is explicit; the results are not full-dataset intent scores.
 
+## Completed core publication
+
+All six active models completed the same frozen 1,071-row suite by September 28,
+2026, giving 6,426 valid decisions with no runtime-error rows. All used four
+CPU threads, a 4,096-token context budget, and zero GPU layers. Each model uses
+its own embedded template with the same instruction and option-scoring method.
+Raw Gemma 3, Llama, MiniCPM5, Phi and Qwen runs are in `results/core-v1/`.
+Gemma 4 E2B is in `results/core-v1-e2b/`. The combined active report is
+`results/core-v1-active-six-summary/REPORT.md`; it verifies all six bundles
+before reporting each task separately. Granite's completed core run is retained
+in the evidence catalogue as retired history, not included in that comparison.
+
+E2B and Qwen have newer environment and implementation records; the first four
+active models ran with the legacy runner. The shared frozen inputs and saved
+prompts allow inspection, but missing historical runtime details are not
+filled in retrospectively. E2B's official QAT Q4_0 build is not identical to
+the other models' Q4_K_M quantization. These limits matter when interpreting
+differences, even though every active model produced a valid prediction per row.
+
 ## JevBench pilot v1
 
 The time-bounded pilot takes the first 10 frozen rows from each public
@@ -105,7 +124,8 @@ model loading and dataset download.
 RAM is process RSS sampled every 10 ms during evaluation, not total model
 memory or a complete load-time peak. `logits_all=True` also retains intermediate
 token logits; this is not a final-logit-only memory optimization.
-The pilot ran concurrently with another CPU job. An uncommitted full-run Llama
+The pilot ran concurrently with another CPU job, and Qwen and E2B overlapped
+during their full runs. A full-run Llama
 row records about 57.5 hours for one decision; the cause was not established.
 Do not clip or delete it to improve a speed result. All existing timing and
 memory measurements are diagnostic; controlled performance runs are still needed.
@@ -128,11 +148,13 @@ and absent missing-evidence predictions count as errors.
 Existing GGUF revisions and hashes identify the exact evaluated files, but
 upstream checkpoint revisions used by third-party quantizers were not recorded.
 Do not use today's upstream revision as a claim about an old conversion.
-Gemma 4 E2B has a pinned official QAT Q4_0 artifact and no evaluation results
-yet. Its effective-size label is distinct from total checkpoint parameters.
+Gemma 4 E2B's pinned official QAT Q4_0 artifact passed the seven-row smoke and
+full 1,071-row suite. Its effective-size label is distinct from total checkpoint
+parameters.
 
 The September 28 correction preserves historical evidence bytes (including
 CRLF) with `.gitattributes`; new outputs explicitly use UTF-8/LF. Old report
 directories are retained for traceability, not endorsed as current analysis.
-The `-r2` reports are recomputed from the same predictions, with no inference.
+The corrected pilot and combined active smoke/core reports are recomputed from
+saved predictions, with no inference during reporting.
 `results/publication.json` declares the complete published evidence set.

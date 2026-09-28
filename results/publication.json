@@ -25,14 +25,35 @@
         "llama-3.2-3b-instruct-q4_k_m", "minicpm5-2b-q4_k_m",
         "phi-4-mini-instruct-q4_k_m", "qwen3.5-4b-q4_k_m"
       ]
+    },
+    {
+      "gold": "benchmarks/smoke-v1.jsonl",
+      "runs": "results/e2b-smoke-v1",
+      "models": ["gemma-4-e2b-it-qat-q4_0"]
+    },
+    {
+      "gold": "benchmarks/core-v1.jsonl",
+      "runs": "results/core-v1",
+      "models": [
+        "gemma-3-4b-it-q4_k_m", "granite-3.3-2b-instruct-q4_k_m",
+        "llama-3.2-3b-instruct-q4_k_m", "minicpm5-2b-q4_k_m",
+        "phi-4-mini-instruct-q4_k_m", "qwen3.5-4b-q4_k_m"
+      ]
+    },
+    {
+      "gold": "benchmarks/core-v1.jsonl",
+      "runs": "results/core-v1-e2b",
+      "models": ["gemma-4-e2b-it-qat-q4_0"]
     }
   ],
   "historical_reports": [
     "results/smoke-v1-summary",
-    "results/jevbench-pilot-v1-summary"
+    "results/jevbench-pilot-v1-summary",
+    "results/smoke-v1-summary-r2"
   ],
   "active_reports": [
-    "results/smoke-v1-summary-r2",
-    "results/jevbench-pilot-v1-summary-r2"
+    "results/smoke-v1-active-six-summary",
+    "results/jevbench-pilot-v1-summary-r2",
+    "results/core-v1-active-six-summary"
   ]
 }

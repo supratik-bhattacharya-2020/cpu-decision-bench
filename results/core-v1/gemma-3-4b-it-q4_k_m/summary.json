@@ -1,0 +1,559 @@
+{
+  "overall": {
+    "rows": 1071,
+    "valid_predictions": 1071,
+    "coverage": 1.0,
+    "accuracy": 0.6666666666666666,
+    "macro_f1": 0.6186206460032547,
+    "nll": 3.431311959042412,
+    "brier": 0.649884396526812,
+    "ece_10_bin": 0.3244986393158262,
+    "reliability_bins": [
+      {
+        "lower": 0.4,
+        "upper": 0.5,
+        "n": 1,
+        "mean_confidence": 0.48406425376826295,
+        "accuracy": 0
+      },
+      {
+        "lower": 0.5,
+        "upper": 0.6,
+        "n": 4,
+        "mean_confidence": 0.5601352277020506,
+        "accuracy": 0.25
+      },
+      {
+        "lower": 0.6,
+        "upper": 0.7,
+        "n": 6,
+        "mean_confidence": 0.6575407894413569,
+        "accuracy": 0
+      },
+      {
+        "lower": 0.7,
+        "upper": 0.8,
+        "n": 10,
+        "mean_confidence": 0.7582760598208899,
+        "accuracy": 0.4
+      },
+      {
+        "lower": 0.8,
+        "upper": 0.9,
+        "n": 8,
+        "mean_confidence": 0.8703335555662424,
+        "accuracy": 0.125
+      },
+      {
+        "lower": 0.9,
+        "upper": 1.0,
+        "n": 1042,
+        "mean_confidence": 0.9983903682949006,
+        "accuracy": 0.6794625719769674
+      }
+    ],
+    "latency_seconds": {
+      "p50": 8.022283900063485,
+      "p95": 33.704305950086564,
+      "total": 15654.15517149656,
+      "decisions_per_second": 0.0684163398322575
+    },
+    "allowed_token_mass": {
+      "mean": 0.9999894387007214,
+      "p50": 0.999999968881824
+    },
+    "peak_process_rss_bytes": {
+      "max": 9983148032.0,
+      "p50": 4957978624.0
+    },
+    "input_tokens": {
+      "mean": 293.21942110177406,
+      "p50": 184
+    },
+    "errors": []
+  },
+  "datasets": {
+    "banking77-12-intent": {
+      "rows": 120,
+      "valid_predictions": 120,
+      "coverage": 1.0,
+      "accuracy": 0.7666666666666667,
+      "macro_f1": 0.7499079914192984,
+      "nll": 2.116544739550022,
+      "brier": 0.4298344798478963,
+      "ece_10_bin": 0.22140072004168795,
+      "reliability_bins": [
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 1,
+          "mean_confidence": 0.48406425376826295,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 1,
+          "mean_confidence": 0.5884329820799776,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 1,
+          "mean_confidence": 0.6028596207750554,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 1,
+          "mean_confidence": 0.759960923417763,
+          "accuracy": 1
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 1,
+          "mean_confidence": 0.8830181162142484,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 115,
+          "mean_confidence": 0.997997150918111,
+          "accuracy": 0.7913043478260869
+        }
+      ],
+      "latency_seconds": {
+        "p50": 15.527102450025268,
+        "p95": 19.114824815071184,
+        "total": 1919.344923100667,
+        "decisions_per_second": 0.06252133139578799
+      },
+      "allowed_token_mass": {
+        "mean": 0.9999955873752217,
+        "p50": 0.9999999959369994
+      },
+      "peak_process_rss_bytes": {
+        "max": 7165947904.0,
+        "p50": 6248658944.0
+      },
+      "input_tokens": {
+        "mean": 236.15833333333333,
+        "p50": 233.0
+      },
+      "errors": []
+    },
+    "boolq-balanced": {
+      "rows": 200,
+      "valid_predictions": 200,
+      "coverage": 1.0,
+      "accuracy": 0.75,
+      "macro_f1": 0.7463474025974026,
+      "nll": 2.0828854936664607,
+      "brier": 0.4950103249332702,
+      "ece_10_bin": 0.24799697338566926,
+      "reliability_bins": [
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 1,
+          "mean_confidence": 0.865929808022387,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 199,
+          "mean_confidence": 0.9986606274829722,
+          "accuracy": 0.7537688442211056
+        }
+      ],
+      "latency_seconds": {
+        "p50": 8.646916300058365,
+        "p95": 19.048573459859472,
+        "total": 1990.2733489999082,
+        "decisions_per_second": 0.10048870930241714
+      },
+      "allowed_token_mass": {
+        "mean": 0.9999979702204687,
+        "p50": 0.9999993147442301
+      },
+      "peak_process_rss_bytes": {
+        "max": 4954927104.0,
+        "p50": 4952510464.0
+      },
+      "input_tokens": {
+        "mean": 210.29,
+        "p50": 197.5
+      },
+      "errors": []
+    },
+    "jevbench-easy": {
+      "rows": 48,
+      "valid_predictions": 48,
+      "coverage": 1.0,
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "nll": 0.0011367677114306263,
+      "brier": 0.0001171394610289073,
+      "ece_10_bin": 0.0011064046905114866,
+      "reliability_bins": [
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 48,
+          "mean_confidence": 0.9988935953094885,
+          "accuracy": 1
+        }
+      ],
+      "latency_seconds": {
+        "p50": 5.6026148500386626,
+        "p95": 6.529954890045337,
+        "total": 257.4626264993567,
+        "decisions_per_second": 0.186434826105217
+      },
+      "allowed_token_mass": {
+        "mean": 0.9999999237057775,
+        "p50": 0.9999999953852345
+      },
+      "peak_process_rss_bytes": {
+        "max": 5230841856.0,
+        "p50": 5230776320.0
+      },
+      "input_tokens": {
+        "mean": 135.77083333333334,
+        "p50": 138.5
+      },
+      "errors": []
+    },
+    "jevbench-hard": {
+      "rows": 111,
+      "valid_predictions": 111,
+      "coverage": 1.0,
+      "accuracy": 0.36036036036036034,
+      "macro_f1": 0.34808234019501627,
+      "nll": 5.663044698745796,
+      "brier": 1.2340333077347354,
+      "ece_10_bin": 0.6165667336206294,
+      "reliability_bins": [
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 2,
+          "mean_confidence": 0.574824030991163,
+          "accuracy": 0.5
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 1,
+          "mean_confidence": 0.6978832539381218,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 4,
+          "mean_confidence": 0.7539031326046193,
+          "accuracy": 0.25
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 104,
+          "mean_confidence": 0.9959208037072206,
+          "accuracy": 0.36538461538461536
+        }
+      ],
+      "latency_seconds": {
+        "p50": 26.209034899948165,
+        "p95": 180.84945324994624,
+        "total": 7557.776031899033,
+        "decisions_per_second": 0.014686860199548566
+      },
+      "allowed_token_mass": {
+        "mean": 0.9999992174787591,
+        "p50": 0.9999998700018238
+      },
+      "peak_process_rss_bytes": {
+        "max": 9983148032.0,
+        "p50": 8648572928.0
+      },
+      "input_tokens": {
+        "mean": 1248.1351351351352,
+        "p50": 636
+      },
+      "errors": []
+    },
+    "jevbench-original": {
+      "rows": 72,
+      "valid_predictions": 72,
+      "coverage": 1.0,
+      "accuracy": 0.7916666666666666,
+      "macro_f1": 0.7718112575255432,
+      "nll": 1.979537166685576,
+      "brier": 0.40517681648743437,
+      "ece_10_bin": 0.20161068948579275,
+      "reliability_bins": [
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 1,
+          "mean_confidence": 0.6819436958624455,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 1,
+          "mean_confidence": 0.8970033101979417,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 70,
+          "mean_confidence": 0.9991003233845241,
+          "accuracy": 0.8142857142857143
+        }
+      ],
+      "latency_seconds": {
+        "p50": 9.595479500014335,
+        "p95": 12.013556124921887,
+        "total": 692.6832172009163,
+        "decisions_per_second": 0.10394361839882146
+      },
+      "allowed_token_mass": {
+        "mean": 0.9999997492121238,
+        "p50": 0.9999999771573942
+      },
+      "peak_process_rss_bytes": {
+        "max": 7166885888.0,
+        "p50": 7166175232.0
+      },
+      "input_tokens": {
+        "mean": 142.95833333333334,
+        "p50": 140.0
+      },
+      "errors": []
+    },
+    "massive-5-language-12-intent": {
+      "rows": 120,
+      "valid_predictions": 120,
+      "coverage": 1.0,
+      "accuracy": 0.7833333333333333,
+      "macro_f1": 0.7661890004637116,
+      "nll": 2.90454060385547,
+      "brier": 0.4220385529130843,
+      "ece_10_bin": 0.2119848223956938,
+      "reliability_bins": [
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 1,
+          "mean_confidence": 0.7793467193085666,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 1,
+          "mean_confidence": 0.8868436137910972,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 118,
+          "mean_confidence": 0.998067697918505,
+          "accuracy": 0.7966101694915254
+        }
+      ],
+      "latency_seconds": {
+        "p50": 8.248351649963297,
+        "p95": 8.964486759831198,
+        "total": 983.454351499211,
+        "decisions_per_second": 0.12201888152415813
+      },
+      "allowed_token_mass": {
+        "mean": 0.9999195827582192,
+        "p50": 0.999999990858079
+      },
+      "peak_process_rss_bytes": {
+        "max": 4957368320.0,
+        "p50": 4956581888.0
+      },
+      "input_tokens": {
+        "mean": 216.51666666666668,
+        "p50": 216.5
+      },
+      "errors": []
+    },
+    "mmlu-pro-domain-balanced": {
+      "rows": 70,
+      "valid_predictions": 70,
+      "coverage": 1.0,
+      "accuracy": 0.3142857142857143,
+      "macro_f1": 0.2481359649122807,
+      "nll": 6.638933676340409,
+      "brier": 1.3064867951015506,
+      "ece_10_bin": 0.6430411595960349,
+      "reliability_bins": [
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 1,
+          "mean_confidence": 0.502459866745899,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 3,
+          "mean_confidence": 0.6541860553575062,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 3,
+          "mean_confidence": 0.7554476749645426,
+          "accuracy": 0.3333333333333333
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 3,
+          "mean_confidence": 0.8491373864344683,
+          "accuracy": 0.3333333333333333
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 60,
+          "mean_confidence": 0.9955684659117832,
+          "accuracy": 0.3333333333333333
+        }
+      ],
+      "latency_seconds": {
+        "p50": 8.87063214997761,
+        "p95": 15.901743875187822,
+        "total": 667.2544255985413,
+        "decisions_per_second": 0.10490750951139594
+      },
+      "allowed_token_mass": {
+        "mean": 0.9999916585202215,
+        "p50": 0.9999991973065032
+      },
+      "peak_process_rss_bytes": {
+        "max": 4959178752.0,
+        "p50": 4958269440.0
+      },
+      "input_tokens": {
+        "mean": 260.2,
+        "p50": 242.0
+      },
+      "errors": []
+    },
+    "owned-robustness": {
+      "rows": 180,
+      "valid_predictions": 180,
+      "coverage": 1.0,
+      "accuracy": 0.8444444444444444,
+      "macro_f1": 0.9409730287779068,
+      "nll": 2.052360054132334,
+      "brier": 0.31118700303911256,
+      "ece_10_bin": 0.15670015384306224,
+      "reliability_bins": [
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 1,
+          "mean_confidence": 0.7614974001704647,
+          "accuracy": 1
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 179,
+          "mean_confidence": 0.9998185759325233,
+          "accuracy": 0.8435754189944135
+        }
+      ],
+      "latency_seconds": {
+        "p50": 4.2865258500678465,
+        "p95": 5.056173580081667,
+        "total": 776.2711256984621,
+        "decisions_per_second": 0.2318777474017756
+      },
+      "allowed_token_mass": {
+        "mean": 0.9999999709078303,
+        "p50": 0.9999999952631846
+      },
+      "peak_process_rss_bytes": {
+        "max": 4960153600.0,
+        "p50": 4959676416.0
+      },
+      "input_tokens": {
+        "mean": 125.41666666666667,
+        "p50": 126.5
+      },
+      "errors": []
+    },
+    "wanli-balanced": {
+      "rows": 150,
+      "valid_predictions": 150,
+      "coverage": 1.0,
+      "accuracy": 0.3933333333333333,
+      "macro_f1": 0.33931623931623933,
+      "nll": 7.003322657950199,
+      "brier": 1.207837152788765,
+      "ece_10_bin": 0.6051252518483845,
+      "reliability_bins": [
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 1,
+          "mean_confidence": 0.88246143700086,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 149,
+          "mean_confidence": 0.9992370895319249,
+          "accuracy": 0.3959731543624161
+        }
+      ],
+      "latency_seconds": {
+        "p50": 5.290739699965343,
+        "p95": 6.780356934980954,
+        "total": 809.635121000465,
+        "decisions_per_second": 0.1852686427617483
+      },
+      "allowed_token_mass": {
+        "mean": 0.9999998140483233,
+        "p50": 0.9999999643747841
+      },
+      "peak_process_rss_bytes": {
+        "max": 4955856896.0,
+        "p50": 4955488256.0
+      },
+      "input_tokens": {
+        "mean": 143.44666666666666,
+        "p50": 141.0
+      },
+      "errors": []
+    }
+  },
+  "robustness": {
+    "paired_variant_comparisons": 108,
+    "argmax_flip_rate": 0.06481481481481481,
+    "mean_absolute_probability_movement": 0.04023584077899709,
+    "missing_evidence_rows": 36,
+    "missing_evidence_error_rate": 0.3611111111111111
+  }
+}
