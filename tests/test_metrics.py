@@ -6,7 +6,7 @@ from decisionbench.metrics import robustness, summarize
 ROWS = [
     {
         "id": "a",
-        "dataset": "demo",
+        "dataset": "boolq-balanced",
         "state": "x",
         "question": "q",
         "options": [{"id": "yes", "description": "Yes"}, {"id": "no", "description": "No"}],
@@ -14,7 +14,7 @@ ROWS = [
     },
     {
         "id": "b",
-        "dataset": "demo",
+        "dataset": "boolq-balanced",
         "state": "y",
         "question": "q",
         "options": [{"id": "yes", "description": "Yes"}, {"id": "no", "description": "No"}],
@@ -102,3 +102,23 @@ def test_robustness_aligns_semantic_option_ids():
     assert report["argmax_flip_rate"] == 0.0
     assert report["mean_absolute_probability_movement"] == pytest.approx(0.0)
     assert report["missing_evidence_error_rate"] == 0.0
+    assert report["valid_pair_coverage"] == 1.0
+    predictions[1]["prediction_id"] = "b"
+    predictions[2]["error"] = {"type": "test", "message": "invalid"}
+    report = robustness([original, reordered, missing], predictions)
+    assert report["valid_pair_coverage"] == 0.0
+    assert report["argmax_flip_rate"] is None
+    assert report["missing_evidence_error_rate"] == 1.0
+
+
+def test_no_macro_f1_for_heterogeneous_or_dynamic_classes():
+    rows = [{**row, "dataset": "mmlu-pro-domain-balanced"} for row in ROWS]
+    predictions = [prediction("a", [0.8, 0.2], "yes"), prediction("b", [0.1, 0.9], "no")]
+    assert summarize(rows, predictions)["macro_f1"] is None
+    rows[0]["dataset"] = "boolq-balanced"
+    assert summarize(rows, predictions)["macro_f1"] is None
+
+
+def test_argmax_mismatch_is_an_invalid_prediction():
+    report = summarize(ROWS[:1], [prediction("a", [0.01, 0.99], "yes")])
+    assert report["accuracy"] == 0 and report["coverage"] == 0

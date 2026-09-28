@@ -1,4 +1,5 @@
 import json
+import csv
 from pathlib import Path
 
 from decisionbench.datasets import (
@@ -6,6 +7,8 @@ from decisionbench.datasets import (
     build_owned,
     build_smoke,
     convert_jevbench,
+    convert_banking77,
+    BANKING77_INTENTS,
 )
 from decisionbench.schema import read_jsonl, sha256_file
 
@@ -102,3 +105,20 @@ def test_jevbench_pilot_balances_tiers(tmp_path):
     rows = read_jsonl(output)
     assert result["rows"] == len(rows) == 30
     assert result["tiers"] == {"easy": 10, "original": 10, "hard": 10}
+
+
+def test_banking77_records_original_csv_index(tmp_path):
+    path = tmp_path / "source.csv"
+    records = [{"text": "excluded", "category": "other"}]
+    for index in range(10):
+        records.extend({"text": f"{label}-{index}", "category": label} for label in BANKING77_INTENTS)
+    with path.open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.DictWriter(stream, fieldnames=["text", "category"])
+        writer.writeheader()
+        writer.writerows(records)
+    rows = convert_banking77(path)
+    assert len(rows) == 120
+    for row in rows:
+        source = records[row["provenance"]["source_row"]]
+        assert row["state"] == source["text"]
+        assert row["label"] == source["category"]

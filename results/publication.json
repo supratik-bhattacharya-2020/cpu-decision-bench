@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "frozen_files": {
+    "benchmarks/core-v1.jsonl": "d7f2bd41760637ecfe155438857be248e759c3c719750fafc6655598749a14ca",
+    "benchmarks/smoke-v1.jsonl": "cf1e522f6ce0fba36417d634cb51131beb550672c8641418c66f9a904d8f5440",
+    "benchmarks/jevbench-pilot-v1.jsonl": "696a49cf2ad787c6df4ba51dfcd4f2e24a0288b58e7e20d080b8053e6d754a5b",
+    "benchmarks/owned/base36.jsonl": "4e10b7d75dace2195017230a6c02a63225f14603c15ee21e390b54803ed6a6ab",
+    "benchmarks/corrections/core-v1-banking77.json": "0f01109c4f77298d9a1f23d9246ca696527d4977e826c42115c8b675e7c8359d"
+  },
+  "suites": [
+    {
+      "gold": "benchmarks/smoke-v1.jsonl",
+      "runs": "results/smoke-v1",
+      "models": [
+        "gemma-3-4b-it-q4_k_m", "granite-3.3-2b-instruct-q4_k_m",
+        "llama-3.2-3b-instruct-q4_k_m", "minicpm5-2b-q4_k_m",
+        "phi-4-mini-instruct-q4_k_m", "qwen3.5-4b-q4_k_m"
+      ]
+    },
+    {
+      "gold": "benchmarks/jevbench-pilot-v1.jsonl",
+      "runs": "results/jevbench-pilot-v1",
+      "models": [
+        "gemma-3-4b-it-q4_k_m", "granite-3.3-2b-instruct-q4_k_m",
+        "llama-3.2-3b-instruct-q4_k_m", "minicpm5-2b-q4_k_m",
+        "phi-4-mini-instruct-q4_k_m", "qwen3.5-4b-q4_k_m"
+      ]
+    }
+  ],
+  "historical_reports": [
+    "results/smoke-v1-summary",
+    "results/jevbench-pilot-v1-summary"
+  ],
+  "active_reports": [
+    "results/smoke-v1-summary-r2",
+    "results/jevbench-pilot-v1-summary-r2"
+  ]
+}

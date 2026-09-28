@@ -1,0 +1,32 @@
+name: Verify published evidence
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.11"
+      - run: python -m venv .venv
+      - name: Install, test and verify without model weights
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            PYTHON=".venv/Scripts/python.exe"
+          else
+            PYTHON=".venv/bin/python"
+          fi
+          "$PYTHON" -m pip install -e '.[test]'
+          "$PYTHON" -m pytest -q
+          "$PYTHON" -m decisionbench.cli verify

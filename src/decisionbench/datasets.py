@@ -10,7 +10,7 @@ import urllib.request
 
 import pyarrow.parquet as parquet
 
-from .schema import validate_row, write_jsonl_create
+from .schema import read_jsonl, sha256_file, sha256_text, validate_row, write_jsonl_create
 
 JEVBENCH_REVISION = "2fa63fa3226cb369795525ed011800f57dcbd894"
 JEVBENCH_FILES = {
@@ -169,7 +169,10 @@ def _balanced(rows: list[dict], label_key: str, labels: list[str], per_label: in
 
 def convert_banking77(path: Path) -> list[dict]:
     with path.open(encoding="utf-8", newline="") as stream:
-        source_rows = list(csv.DictReader(stream))
+        source_rows = [
+            {**row, "source_row": index}
+            for index, row in enumerate(csv.DictReader(stream))
+        ]
     selected = _balanced(source_rows, "category", BANKING77_INTENTS, 10)
     options = [{"id": label, "description": _description(label)} for label in BANKING77_INTENTS]
     rows = []
@@ -186,7 +189,7 @@ def convert_banking77(path: Path) -> list[dict]:
                 "source": "PolyAI-LDN/task-specific-datasets",
                 "revision": BANKING77_COMMIT,
                 "source_split": "test",
-                "source_row": source_index,
+                "source_row": source["source_row"],
                 "license": "CC-BY-4.0",
                 "selection": "first 10 test rows for each of 12 frozen intents",
             },
@@ -194,6 +197,41 @@ def convert_banking77(path: Path) -> list[dict]:
         validate_row(row)
         rows.append(row)
     return rows
+
+
+def banking77_correction(core_path: Path, source_path: Path) -> dict:
+    if sha256_file(source_path) != BANKING77_TEST_SHA256:
+        raise ValueError("BANKING77 correction requires the pinned source CSV")
+    frozen = {
+        row["id"]: row for row in read_jsonl(core_path)
+        if row["dataset"] == "banking77-12-intent"
+    }
+    corrected = convert_banking77(source_path)
+    if set(frozen) != {row["id"] for row in corrected}:
+        raise ValueError("BANKING77 correction row set differs")
+    mapping = []
+    for row in corrected:
+        old = frozen[row["id"]]
+        old_copy = copy.deepcopy(old)
+        old_copy["provenance"]["source_row"] = row["provenance"]["source_row"]
+        if old_copy != row:
+            raise ValueError(f"Correction changes more than source_row: {row['id']}")
+        mapping.append({
+            "id": row["id"],
+            "recorded_source_row": old["provenance"]["source_row"],
+            "correct_source_row": row["provenance"]["source_row"],
+            "state_sha256": sha256_text(row["state"]),
+            "label": row["label"],
+        })
+    return {
+        "schema_version": 1,
+        "benchmark_sha256": sha256_file(core_path),
+        "source_revision": BANKING77_COMMIT,
+        "source_sha256": BANKING77_TEST_SHA256,
+        "index_basis": "zero-based CSV data row, excluding the header",
+        "scope": "provenance only; frozen inputs, labels and prediction values are unchanged",
+        "rows": mapping,
+    }
 
 
 def convert_boolq(path: Path) -> list[dict]:

@@ -38,7 +38,10 @@ def run(args) -> int:
         context_tokens=args.context_tokens,
         chat_format=args.chat_format,
     )
-    run_benchmark(args.input, args.output, engine)
+    try:
+        run_benchmark(args.input, args.output, engine)
+    finally:
+        engine.close()
     return 0
 
 
@@ -46,11 +49,20 @@ def report(args) -> int:
     from .report import create_comparison_report, create_report
 
     if args.runs:
+        from .models import read_model_manifest
+
+        manifests = sorted(args.models.glob("*.json"))
+        if not manifests:
+            raise ValueError(f"No active model manifests in {args.models}")
+        models = [read_model_manifest(path) for path in manifests]
         create_comparison_report(
             args.runs,
             args.output,
+            gold_path=args.gold,
             title=args.title,
             warning=args.warning,
+            model_ids=[model["id"] for model in models],
+            model_manifests={model["id"]: model for model in models},
         )
     else:
         create_report(args.gold, args.predictions, args.output)
@@ -75,6 +87,10 @@ def main() -> None:
     parser.add_argument("--version", action="version", version=__version__)
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("doctor", help="Check the local CPU benchmark environment")
+    verifier = subparsers.add_parser("verify", help="Verify published checksums and recompute metrics")
+    verifier.add_argument("--root", type=Path, default=Path("."))
+    verifier.add_argument("--banking77-source", type=Path,
+                          help="Optional pinned CSV for verifying the provenance correction")
     fetcher = subparsers.add_parser("fetch", help="Fetch pinned datasets or a model")
     fetchers = fetcher.add_subparsers(dest="fetch_kind", required=True)
     dataset_fetcher = fetchers.add_parser("datasets", help="Build the frozen core benchmark")
@@ -96,7 +112,10 @@ def main() -> None:
     mode = reporter.add_mutually_exclusive_group(required=True)
     mode.add_argument("--runs", type=Path)
     mode.add_argument("--predictions", type=Path)
-    reporter.add_argument("--gold", type=Path)
+    reporter.add_argument("--gold", type=Path,
+                          help="Benchmark file; comparisons can use the recorded path")
+    reporter.add_argument("--models", type=Path, default=Path("models"),
+                          help="Active model manifest directory for comparisons")
     reporter.add_argument("--title", default="DecisionBench comparison")
     reporter.add_argument(
         "--warning",
@@ -106,6 +125,11 @@ def main() -> None:
     args = parser.parse_args()
     if args.command == "doctor":
         raise SystemExit(doctor())
+    if args.command == "verify":
+        from .verify import verify_publication
+
+        print(json.dumps(verify_publication(args.root, args.banking77_source), indent=2))
+        raise SystemExit(0)
     if args.command == "fetch":
         if args.fetch_kind == "datasets" and args.output.exists():
             parser.error("Output must be new")
@@ -113,8 +137,6 @@ def main() -> None:
     if args.command == "report":
         if args.predictions and not args.gold:
             parser.error("--gold is required with --predictions")
-        if args.runs and args.gold:
-            parser.error("--gold cannot be used with --runs")
         raise SystemExit(report(args))
     if args.threads is not None and args.threads < 1:
         parser.error("--threads must be positive")

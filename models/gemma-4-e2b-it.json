@@ -1,0 +1,26 @@
+{
+  "id": "gemma-4-e2b-it-qat-q4_0",
+  "family": "Gemma 4",
+  "parameters_billion": 5.123178051,
+  "parameter_basis": "effective",
+  "effective_parameters_billion": 2,
+  "parameter_note": "Total parameters from the upstream multimodal checkpoint. Effective size is not total size or measured CPU RAM.",
+  "upstream": "google/gemma-4-E2B-it",
+  "upstream_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+  "license": "Apache-2.0",
+  "access": "public",
+  "benchmark_context_tokens": 4096,
+  "alias_compatibility": {
+    "status": "unverified",
+    "detail": "Not benchmarked yet. Requires local text-only GGUF alias and scoring checks."
+  },
+  "gguf": {
+    "repository": "google/gemma-4-E2B-it-qat-q4_0-gguf",
+    "revision": "675cff42a74c774d6cb76f76d8eacb49b48c9b93",
+    "filename": "gemma-4-E2B_q4_0-it.gguf",
+    "bytes": 3349516256,
+    "sha256": "fa401b55b07ee70a54c6dae3903c783a6e65064312529ea57175cb5f8dec6634",
+    "quantization": "QAT Q4_0",
+    "note": "Official Google text model. No multimodal projector is used. This is not Q4_K_M."
+  }
+}

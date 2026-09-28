@@ -13,10 +13,15 @@
 Model weights are not stored here. The exact upstream and GGUF sources are
 listed in `models/*.json`.
 
-Gemma uses the Gemma license. Llama uses the Llama 3.2 Community License.
+Gemma 3 uses the Gemma license. The pinned official Gemma 4 E2B model metadata
+specifies Apache-2.0. Llama uses the Llama 3.2 Community License.
 Users may need to accept upstream terms before downloading those models.
 Qwen3.5, MiniCPM5, and Granite manifests identify Apache-2.0 sources. Phi-4 Mini
 uses MIT.
+
+Granite's manifest is retained under `models/retired/`; it is not in the active
+comparison. Existing third-party GGUF pins identify the evaluated artifact,
+not a proven upstream conversion revision. Do not infer that missing revision.
 
 Each user is responsible for following the model and dataset terms that apply
 to their use.

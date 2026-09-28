@@ -11,6 +11,10 @@ Keep changes small and readable.
 4. Run the smoke suite locally and report whether every alias is one token.
 5. Do not commit model weights or caches.
 
+Distinguish total from effective parameters and quantization formats. If a
+quantizer did not publish its source checkpoint revision, disclose that gap
+rather than pinning today's upstream revision as if it were the original.
+
 ## Add a dataset
 
 1. Add a converter in `src/decisionbench/datasets.py`.
@@ -23,4 +27,10 @@ Run:
 
 ```powershell
 .\.venv\Scripts\python -m pytest -q
+.\.venv\Scripts\decisionbench verify
 ```
+
+Keep frozen benchmark and result bytes unchanged. New results/reports need new
+paths and explicit LF writers; extend `results/publication.json` when publishing
+evidence. Verify a Git checkout, not just local working-tree hashes. Do not
+commit in-progress runs, caches, or weights.

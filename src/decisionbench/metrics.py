@@ -6,6 +6,10 @@ import statistics
 
 from .schema import validate_prediction, validate_row
 
+FIXED_CLASS_DATASETS = {
+    "banking77-12-intent", "boolq-balanced", "wanli-balanced",
+    "massive-5-language-12-intent",
+}
 
 def _percentile(values: list[float], fraction: float) -> float | None:
     if not values:
@@ -20,9 +24,9 @@ def _percentile(values: list[float], fraction: float) -> float | None:
     return ordered[lower] * (1 - weight) + ordered[upper] * weight
 
 
-def _macro_f1(gold: list[str], predicted: list[str | None]) -> float:
+def _macro_f1(gold: list[str], predicted: list[str | None], labels: set[str]) -> float:
     scores = []
-    for label in sorted(set(gold)):
+    for label in sorted(labels):
         true_positive = sum(left == label and right == label for left, right in zip(gold, predicted))
         false_positive = sum(left != label and right == label for left, right in zip(gold, predicted))
         false_negative = sum(left == label and right != label for left, right in zip(gold, predicted))
@@ -34,6 +38,10 @@ def _macro_f1(gold: list[str], predicted: list[str | None]) -> float:
 def summarize(rows: list[dict], predictions: list[dict]) -> dict:
     for row in rows:
         validate_row(row)
+    if len({row["id"] for row in rows}) != len(rows):
+        raise ValueError("Benchmark ids must be unique")
+    if any(not isinstance(p, dict) or not isinstance(p.get("id"), str) for p in predictions):
+        raise ValueError("Every prediction must have an id")
     by_prediction = {prediction["id"]: prediction for prediction in predictions}
     if len(by_prediction) != len(predictions):
         raise ValueError("Prediction ids must be unique")
@@ -63,13 +71,13 @@ def summarize(rows: list[dict], predictions: list[dict]) -> dict:
         try:
             if prediction.get("error"):
                 detail = prediction["error"]
+                if not isinstance(detail, dict):
+                    raise ValueError("Malformed inference error")
                 raise ValueError(f"{detail.get('type', 'Error')}: {detail.get('message', detail)}")
             validate_prediction(prediction, row)
             option_ids = prediction["option_ids"]
             probabilities = prediction["probabilities"]
-            predicted = prediction.get("prediction_id") or option_ids[max(range(len(probabilities)), key=probabilities.__getitem__)]
-            if predicted not in option_ids:
-                raise ValueError("prediction_id is outside the declared options")
+            predicted = prediction["prediction_id"]
             predicted_ids.append(predicted)
             is_correct = predicted == row["label"]
             correct.append(is_correct)
@@ -115,14 +123,18 @@ def summarize(rows: list[dict], predictions: list[dict]) -> dict:
         else None
     )
     total_seconds = sum(latencies)
+    label_sets = {frozenset(option["id"] for option in row["options"]) for row in rows}
+    datasets = {row["dataset"] for row in rows}
+    shared_classes = len(datasets) == 1 and datasets <= FIXED_CLASS_DATASETS and len(label_sets) == 1
     return {
         "rows": len(rows),
+        "correct_predictions": sum(correct),
         "valid_predictions": len(rows) - len(errors),
         "coverage": (len(rows) - len(errors)) / len(rows) if rows else 0.0,
         "accuracy": sum(correct) / len(rows) if rows else None,
-        "macro_f1": _macro_f1(gold_ids, predicted_ids) if rows else None,
-        "nll": statistics.mean(nll) if len(nll) == len(rows) else None,
-        "brier": statistics.mean(brier) if len(brier) == len(rows) else None,
+        "macro_f1": _macro_f1(gold_ids, predicted_ids, set(next(iter(label_sets)))) if shared_classes else None,
+        "nll": statistics.mean(nll) if rows and len(nll) == len(rows) else None,
+        "brier": statistics.mean(brier) if rows and len(brier) == len(rows) else None,
         "ece_10_bin": ece,
         "reliability_bins": bins,
         "latency_seconds": {
@@ -148,6 +160,7 @@ def summarize(rows: list[dict], predictions: list[dict]) -> dict:
 
 
 def by_dataset(rows: list[dict], predictions: list[dict]) -> dict:
+    summarize(rows, predictions)
     prediction_map = {prediction["id"]: prediction for prediction in predictions}
     grouped = defaultdict(list)
     for row in rows:
@@ -159,6 +172,7 @@ def by_dataset(rows: list[dict], predictions: list[dict]) -> dict:
 
 
 def robustness(rows: list[dict], predictions: list[dict]) -> dict | None:
+    summarize(rows, predictions)
     owned = [row for row in rows if row.get("dataset") == "owned-robustness"]
     if not owned:
         return None
@@ -169,20 +183,29 @@ def robustness(rows: list[dict], predictions: list[dict]) -> dict | None:
     comparisons = 0
     flips = 0
     probability_changes = []
+    declared_comparisons = 0
     missing_rows = 0
     missing_errors = 0
     for variants in groups.values():
         original = variants.get("original")
-        if original is None:
-            continue
-        original_prediction = prediction_map.get(original["id"])
-        if original_prediction and isinstance(original_prediction.get("probabilities"), list):
+        original_prediction = prediction_map.get(original["id"]) if original else None
+        declared_comparisons += sum(variant not in {"original", "missing_evidence"} for variant in variants)
+        if original_prediction:
+            try:
+                validate_prediction(original_prediction, original)
+            except ValueError:
+                original_prediction = None
+        if original_prediction:
             original_probabilities = dict(zip(original_prediction["option_ids"], original_prediction["probabilities"]))
             for variant, row in variants.items():
                 if variant in {"original", "missing_evidence"}:
                     continue
                 prediction = prediction_map.get(row["id"])
                 if not prediction or not isinstance(prediction.get("probabilities"), list):
+                    continue
+                try:
+                    validate_prediction(prediction, row)
+                except ValueError:
                     continue
                 probabilities = dict(zip(prediction["option_ids"], prediction["probabilities"]))
                 if set(probabilities) != set(original_probabilities):
@@ -197,10 +220,17 @@ def robustness(rows: list[dict], predictions: list[dict]) -> dict | None:
         if missing:
             missing_rows += 1
             prediction = prediction_map.get(missing["id"])
-            if not prediction or prediction.get("prediction_id") != "insufficient":
+            try:
+                validate_prediction(prediction, missing)
+                valid = True
+            except ValueError:
+                valid = False
+            if not valid or prediction["prediction_id"] != missing["label"]:
                 missing_errors += 1
     return {
+        "declared_variant_comparisons": declared_comparisons,
         "paired_variant_comparisons": comparisons,
+        "valid_pair_coverage": comparisons / declared_comparisons if declared_comparisons else None,
         "argmax_flip_rate": flips / comparisons if comparisons else None,
         "mean_absolute_probability_movement": (
             statistics.mean(probability_changes) if probability_changes else None

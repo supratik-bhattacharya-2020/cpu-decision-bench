@@ -3,15 +3,18 @@ from __future__ import annotations
 import math
 import os
 from datetime import datetime
+from importlib.metadata import version
 from pathlib import Path
+import platform
 import threading
 import time
+import warnings
 
 import numpy
 import psutil
 
-from .prompt import LABELS, messages, prompt_record, render_plain
-from .schema import sha256_file, validate_row
+from .prompt import LABELS, PROMPT_VERSION, SYSTEM_PROMPT, messages, prompt_record, render_plain
+from .schema import canonical_json, sha256_file, sha256_text, validate_row
 
 
 def softmax(values: list[float]) -> list[float]:
@@ -49,6 +52,8 @@ class CpuEngine:
             raise ValueError(f"GGUF model not found: {model_path}")
         if context_tokens < 1:
             raise ValueError("context_tokens must be positive")
+        if threads is not None and threads < 1:
+            raise ValueError("threads must be positive")
         self.model_path = model_path
         self.model_id = model_id
         self.threads = threads or os.cpu_count() or 4
@@ -67,6 +72,9 @@ class CpuEngine:
         )
         load_seconds = time.perf_counter() - load_started
         self._formatter = self._build_formatter()
+        from llama_cpp import llama_print_system_info
+
+        source_dir = Path(__file__).parent
         self.metadata = {
             "id": model_id,
             "gguf_file": model_path.name,
@@ -76,10 +84,35 @@ class CpuEngine:
             "context_tokens": context_tokens,
             "n_gpu_layers": 0,
             "chat_format": self._llm.chat_format,
+            "prompt_rendering": "gguf-template" if self._formatter else "plain-text-fallback",
             "benchmark_date": benchmark_date,
             "load_seconds": load_seconds,
             "process_rss_after_load_bytes": psutil.Process().memory_info().rss,
+            "prompt_version": PROMPT_VERSION,
+            "instruction_sha256": sha256_text(SYSTEM_PROMPT),
+            "implementation_sha256": sha256_text(canonical_json({
+                name: sha256_text((source_dir / name).read_text(encoding="utf-8"))
+                for name in ("engine.py", "prompt.py", "schema.py")
+            })),
         }
+        self.environment = {
+            "python": platform.python_version(),
+            "system": platform.system(),
+            "os_version": platform.version(),
+            "machine": platform.machine(),
+            "processor": platform.processor(),
+            "logical_cpus": os.cpu_count(),
+            "physical_cpus": psutil.cpu_count(logical=False),
+            "total_memory_bytes": psutil.virtual_memory().total,
+            "packages": {
+                name: version(name)
+                for name in ("llama-cpp-python", "numpy", "psutil", "Jinja2")
+            },
+            "llama_cpp_build": llama_print_system_info().decode("utf-8"),
+        }
+
+    def close(self) -> None:
+        self._llm.close()
 
     def _special_token_text(self, token_id: int) -> str:
         if token_id < 0:
@@ -96,6 +129,7 @@ class CpuEngine:
             template = metadata.get(f"tokenizer.chat_template.{chat_format}")
         template = template or metadata.get("tokenizer.chat_template")
         if not template:
+            warnings.warn("GGUF has no chat template; using the recorded plain-text fallback.", stacklevel=2)
             return None
         formatter = Jinja2ChatFormatter(
             template=template,

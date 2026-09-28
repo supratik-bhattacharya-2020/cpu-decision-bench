@@ -1,6 +1,8 @@
 {
   "id": "granite-3.3-2b-instruct-q4_k_m",
   "family": "Granite 3.3",
+  "status": "retired",
+  "retirement_reason": "Removed from the active lineup at the project owner's request; historical predictions are retained.",
   "parameters_billion": 2.5,
   "upstream": "ibm-granite/granite-3.3-2b-instruct",
   "license": "Apache-2.0",

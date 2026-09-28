@@ -1,0 +1,4 @@
+* text=auto eol=lf
+# Frozen evidence is hashed byte-for-byte, including historical CRLF files.
+benchmarks/** -text whitespace=cr-at-eol
+results/** -text whitespace=cr-at-eol
