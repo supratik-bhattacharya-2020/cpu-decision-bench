@@ -1,7 +1,12 @@
 import json
 from pathlib import Path
 
-from decisionbench.datasets import build_owned, build_smoke, convert_jevbench
+from decisionbench.datasets import (
+    build_jevbench_pilot,
+    build_owned,
+    build_smoke,
+    convert_jevbench,
+)
 from decisionbench.schema import read_jsonl, sha256_file
 
 
@@ -88,3 +93,12 @@ def test_smoke_suite_covers_seven_sources(tmp_path):
     rows = read_jsonl(output)
     assert result["rows"] == len(rows) == 7
     assert len({row["dataset"] for row in rows}) == 7
+
+
+def test_jevbench_pilot_balances_tiers(tmp_path):
+    root = Path(__file__).parents[1]
+    output = tmp_path / "pilot.jsonl"
+    result = build_jevbench_pilot(root / "benchmarks" / "core-v1.jsonl", output)
+    rows = read_jsonl(output)
+    assert result["rows"] == len(rows) == 30
+    assert result["tiers"] == {"easy": 10, "original": 10, "hard": 10}

@@ -1,0 +1,211 @@
+{
+  "overall": {
+    "rows": 30,
+    "valid_predictions": 29,
+    "coverage": 0.9666666666666667,
+    "accuracy": 0.6666666666666666,
+    "macro_f1": 0.6618433469644542,
+    "nll": null,
+    "brier": null,
+    "ece_10_bin": 0.309337235207628,
+    "reliability_bins": [
+      {
+        "lower": 0.5,
+        "upper": 0.6,
+        "n": 1,
+        "mean_confidence": 0.506353726126461,
+        "accuracy": 1
+      },
+      {
+        "lower": 0.7,
+        "upper": 0.8,
+        "n": 1,
+        "mean_confidence": 0.7663448100251049,
+        "accuracy": 0
+      },
+      {
+        "lower": 0.8,
+        "upper": 0.9,
+        "n": 1,
+        "mean_confidence": 0.8713410660339137,
+        "accuracy": 0
+      },
+      {
+        "lower": 0.9,
+        "upper": 1.0,
+        "n": 26,
+        "mean_confidence": 0.9938249104264867,
+        "accuracy": 0.7307692307692307
+      }
+    ],
+    "latency_seconds": {
+      "p50": 8.637802600162104,
+      "p95": 153.88176102004945,
+      "total": 1266.7941370999906,
+      "decisions_per_second": 0.022892433072344547
+    },
+    "allowed_token_mass": {
+      "mean": 0.9312227433754596,
+      "p50": 0.987980898890993
+    },
+    "peak_process_rss_bytes": {
+      "max": 4072620032.0,
+      "p50": 3240247296.0
+    },
+    "input_tokens": {
+      "mean": 815.1379310344828,
+      "p50": 164
+    },
+    "errors": [
+      {
+        "id": "jevbench/hard/hard-opus-a-long_policy-01",
+        "status": "invalid",
+        "error": "ValueError: Prompt uses 4511 tokens; limit is 4096"
+      }
+    ]
+  },
+  "datasets": {
+    "jevbench-easy": {
+      "rows": 10,
+      "valid_predictions": 10,
+      "coverage": 1.0,
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "nll": 7.403142104170074e-05,
+      "brier": 1.9166080699974247e-08,
+      "ece_10_bin": 7.402516284171767e-05,
+      "reliability_bins": [
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 10,
+          "mean_confidence": 0.9999259748371583,
+          "accuracy": 1
+        }
+      ],
+      "latency_seconds": {
+        "p50": 7.524035949958488,
+        "p95": 8.752822890074459,
+        "total": 74.19229170004837,
+        "decisions_per_second": 0.1347848916761993
+      },
+      "allowed_token_mass": {
+        "mean": 0.8509638737411825,
+        "p50": 0.892204306933124
+      },
+      "peak_process_rss_bytes": {
+        "max": 3240071168.0,
+        "p50": 3240032256.0
+      },
+      "input_tokens": {
+        "mean": 160.5,
+        "p50": 164.5
+      },
+      "errors": []
+    },
+    "jevbench-hard": {
+      "rows": 10,
+      "valid_predictions": 9,
+      "coverage": 0.9,
+      "accuracy": 0.3,
+      "macro_f1": 0.20833333333333331,
+      "nll": null,
+      "brier": null,
+      "ece_10_bin": 0.669259038245448,
+      "reliability_bins": [
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 1,
+          "mean_confidence": 0.506353726126461,
+          "accuracy": 1
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 1,
+          "mean_confidence": 0.7663448100251049,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 1,
+          "mean_confidence": 0.8713410660339137,
+          "accuracy": 0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 6,
+          "mean_confidence": 0.9819998657127456,
+          "accuracy": 0.3333333333333333
+        }
+      ],
+      "latency_seconds": {
+        "p50": 146.0086478998419,
+        "p95": 159.34055064017883,
+        "total": 1113.1241361002903,
+        "decisions_per_second": 0.008085351586688726
+      },
+      "allowed_token_mass": {
+        "mean": 0.9501422563616865,
+        "p50": 0.9690637899823318
+      },
+      "peak_process_rss_bytes": {
+        "max": 4072620032.0,
+        "p50": 4072607744.0
+      },
+      "input_tokens": {
+        "mean": 2293.3333333333335,
+        "p50": 2616
+      },
+      "errors": [
+        {
+          "id": "jevbench/hard/hard-opus-a-long_policy-01",
+          "status": "invalid",
+          "error": "ValueError: Prompt uses 4511 tokens; limit is 4096"
+        }
+      ]
+    },
+    "jevbench-original": {
+      "rows": 10,
+      "valid_predictions": 10,
+      "coverage": 1.0,
+      "accuracy": 0.7,
+      "macro_f1": 0.6000000000000001,
+      "nll": 1.6300251021270031,
+      "brier": 0.581039938290921,
+      "ece_10_bin": 0.29481887284405983,
+      "reliability_bins": [
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 10,
+          "mean_confidence": 0.9948188728440598,
+          "accuracy": 0.7
+        }
+      ],
+      "latency_seconds": {
+        "p50": 7.544815499917604,
+        "p95": 10.33729242500849,
+        "total": 79.4777092996519,
+        "decisions_per_second": 0.12582144211400664
+      },
+      "allowed_token_mass": {
+        "mean": 0.9944540513221324,
+        "p50": 0.996835972136559
+      },
+      "peak_process_rss_bytes": {
+        "max": 3240263680.0,
+        "p50": 3240247296.0
+      },
+      "input_tokens": {
+        "mean": 139.4,
+        "p50": 140.0
+      },
+      "errors": []
+    }
+  },
+  "robustness": null
+}

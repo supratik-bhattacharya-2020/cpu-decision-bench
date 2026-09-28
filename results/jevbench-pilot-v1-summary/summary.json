@@ -1,0 +1,79 @@
+{
+  "title": "DecisionBench JevBench pilot-v1",
+  "warning": "30-row JevBench pilot, not the full 1,071-row benchmark. Timing and RAM are diagnostic only because another CPU benchmark was running concurrently.",
+  "benchmark_sha256": "696a49cf2ad787c6df4ba51dfcd4f2e24a0288b58e7e20d080b8053e6d754a5b",
+  "models": [
+    {
+      "model_id": "gemma-3-4b-it-q4_k_m",
+      "gguf_sha256": "04a43a22e8d2003deda5acc262f68ec1005fa76c735a9962a8c77042a74a7d19",
+      "rows": 30,
+      "coverage": 1.0,
+      "accuracy": 0.6333333333333333,
+      "macro_f1": 0.6030198175526895,
+      "allowed_token_mass": 0.9999994535252025,
+      "p50_seconds": 8.330422200029716,
+      "peak_process_rss_bytes": 9982464000.0,
+      "load_seconds": 18.098176500061527
+    },
+    {
+      "model_id": "granite-3.3-2b-instruct-q4_k_m",
+      "gguf_sha256": "ac71e9e32c0bea919b409c5918f69ca74339854b0319c5065e4e9fb6d95c4852",
+      "rows": 30,
+      "coverage": 0.9666666666666667,
+      "accuracy": 0.6666666666666666,
+      "macro_f1": 0.6618433469644542,
+      "allowed_token_mass": 0.9312227433754596,
+      "p50_seconds": 8.637802600162104,
+      "peak_process_rss_bytes": 4072620032.0,
+      "load_seconds": 11.858795899897814
+    },
+    {
+      "model_id": "llama-3.2-3b-instruct-q4_k_m",
+      "gguf_sha256": "6c1a2b41161032677be168d354123594c0e6e67d2b9227c84f296ad037c728ff",
+      "rows": 30,
+      "coverage": 1.0,
+      "accuracy": 0.6,
+      "macro_f1": 0.6274509803921569,
+      "allowed_token_mass": 0.9998247846459477,
+      "p50_seconds": 9.339167050085962,
+      "peak_process_rss_bytes": 6507077632.0,
+      "load_seconds": 15.64138919999823
+    },
+    {
+      "model_id": "minicpm5-2b-q4_k_m",
+      "gguf_sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+      "rows": 30,
+      "coverage": 1.0,
+      "accuracy": 0.6666666666666666,
+      "macro_f1": 0.7098039215686275,
+      "allowed_token_mass": 0.9030246962829108,
+      "p50_seconds": 7.3677340999711305,
+      "peak_process_rss_bytes": 5203456000.0,
+      "load_seconds": 13.022739000152797
+    },
+    {
+      "model_id": "phi-4-mini-instruct-q4_k_m",
+      "gguf_sha256": "01999f17c39cc3074afae5e9c539bc82d45f2dd7faa3917c66cbef76fce8c0c2",
+      "rows": 30,
+      "coverage": 1.0,
+      "accuracy": 0.6333333333333333,
+      "macro_f1": 0.6509803921568628,
+      "allowed_token_mass": 0.9732785586196456,
+      "p50_seconds": 11.516776599921286,
+      "peak_process_rss_bytes": 8302469120.0,
+      "load_seconds": 16.594811500050128
+    },
+    {
+      "model_id": "qwen3.5-4b-q4_k_m",
+      "gguf_sha256": "13c16f426047e2de38cd075bdade4a7bcbc8c774384876f677740cda65f8a983",
+      "rows": 30,
+      "coverage": 1.0,
+      "accuracy": 0.6666666666666666,
+      "macro_f1": 0.7132352941176471,
+      "allowed_token_mass": 0.9981988394725414,
+      "p50_seconds": 14.85639829991851,
+      "peak_process_rss_bytes": 9580933120.0,
+      "load_seconds": 24.988690700149164
+    }
+  ]
+}

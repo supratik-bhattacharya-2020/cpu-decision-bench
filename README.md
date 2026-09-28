@@ -28,7 +28,8 @@ The six planned model families are Qwen3.5 4B, Gemma 3 4B, Phi-4 Mini,
 Llama 3.2 3B, MiniCPM5, and Granite 3.3. Exact GGUF revisions and hashes are in
 `models/`.
 
-The benchmark method works. Full six-model results have not been run yet.
+The benchmark method and six-model JevBench pilot are complete. The full
+1,071-row matrix is still running.
 
 ## Metrics
 
@@ -80,6 +81,27 @@ quality claims.
 | Qwen3.5 4B | 1.000 | 0.857 | 0.999 | 10.617 | 5.25 |
 
 Row-level evidence and checksums are under `results/smoke-v1/`.
+
+## JevBench pilot result
+
+Pilot v1 contains 30 fixed public JevBench rows: 10 easy, 10 original, and 10
+hard. This is an early comparison, not the full benchmark.
+
+| Model | Coverage | Accuracy | Macro-F1 | Allowed mass |
+|---|---:|---:|---:|---:|
+| Gemma 3 4B | 1.000 | 0.633 | 0.603 | 1.000 |
+| Granite 3.3 2B | 0.967 | 0.667 | 0.662 | 0.931 |
+| Llama 3.2 3B | 1.000 | 0.600 | 0.627 | 1.000 |
+| MiniCPM5 | 1.000 | 0.667 | 0.710 | 0.903 |
+| Phi-4 Mini | 1.000 | 0.633 | 0.651 | 0.973 |
+| Qwen3.5 4B | 1.000 | 0.667 | 0.713 | 0.998 |
+
+Granite exceeded the fixed 4,096-token budget on one hard row, so that row
+remains an explicit failure. Timing and RAM from this pilot are diagnostic only
+because the full CPU benchmark was running at the same time.
+
+Row-level predictions, summaries, and checksums are under
+`results/jevbench-pilot-v1/`.
 
 ## Commands
 

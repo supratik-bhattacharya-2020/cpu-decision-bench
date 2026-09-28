@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "started_at": "2026-09-25T06:57:57.081127+00:00",
+  "benchmark": {
+    "path": "benchmarks\\jevbench-pilot-v1.jsonl",
+    "sha256": "696a49cf2ad787c6df4ba51dfcd4f2e24a0288b58e7e20d080b8053e6d754a5b",
+    "rows": 30
+  },
+  "model": {
+    "id": "minicpm5-2b-q4_k_m",
+    "gguf_file": "MiniCPM5-2B-Q4_K_M.gguf",
+    "gguf_bytes": 1561318368,
+    "gguf_sha256": "ec2d5801640099e97d8d7e8003ad4d81f336e757811f03a26173dddf386602fd",
+    "threads": 4,
+    "context_tokens": 4096,
+    "n_gpu_layers": 0,
+    "chat_format": "chat_template.default",
+    "benchmark_date": "2026-09-24",
+    "load_seconds": 13.022739000152797,
+    "process_rss_after_load_bytes": 2190192640
+  },
+  "completed_at": "2026-09-25T07:18:59.265260+00:00",
+  "prediction_rows": 30
+}

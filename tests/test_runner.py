@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from decisionbench.runner import run_benchmark
+from decisionbench.runner import derive_run, run_benchmark
 from decisionbench.schema import write_jsonl_create
 
 
@@ -61,6 +61,7 @@ def test_runner_records_explicit_errors(tmp_path):
     output = tmp_path / "run"
     summary = run_benchmark(benchmark, output, FakeEngine(fail="two"))
     assert summary["overall"]["coverage"] == 0.5
+    assert summary["overall"]["errors"][0]["error"] == "RuntimeError: declared failure"
     predictions = [
         json.loads(line) for line in (output / "predictions.jsonl").read_text().splitlines()
     ]
@@ -84,3 +85,17 @@ def test_runner_resumes_missing_ids(tmp_path):
     )
     run_benchmark(benchmark, output, FakeEngine())
     assert len((output / "predictions.jsonl").read_text().splitlines()) == 2
+
+
+def test_derive_run_reuses_matching_rows(tmp_path):
+    source_benchmark = tmp_path / "source.jsonl"
+    write_jsonl_create(source_benchmark, [row("one"), row("two")])
+    source_run = tmp_path / "source-run"
+    run_benchmark(source_benchmark, source_run, FakeEngine())
+    subset = tmp_path / "subset.jsonl"
+    write_jsonl_create(subset, [row("two")])
+    output = tmp_path / "derived"
+    summary = derive_run(source_run, subset, output)
+    assert summary["overall"]["rows"] == 1
+    manifest = json.loads((output / "manifest.json").read_text())
+    assert manifest["derived_from"]["run"] == str(source_run)

@@ -84,7 +84,13 @@ def create_report(gold_path: Path, predictions_path: Path, output_dir: Path) -> 
     return report
 
 
-def create_comparison_report(runs_dir: Path, output_dir: Path, *, title: str) -> dict:
+def create_comparison_report(
+    runs_dir: Path,
+    output_dir: Path,
+    *,
+    title: str,
+    warning: str = "Preliminary results; do not treat a small suite as the full benchmark.",
+) -> dict:
     if output_dir.exists():
         raise ValueError("Report output directory must be new")
     models = []
@@ -121,7 +127,7 @@ def create_comparison_report(runs_dir: Path, output_dir: Path, *, title: str) ->
         raise ValueError("No complete run directories found")
     report = {
         "title": title,
-        "warning": "Smoke results only; do not use as headline benchmark claims.",
+        "warning": warning,
         "benchmark_sha256": benchmark_sha256,
         "models": models,
     }
@@ -147,7 +153,7 @@ def create_comparison_report(runs_dir: Path, output_dir: Path, *, title: str) ->
     lines = [
         f"# {title}",
         "",
-        "**Smoke results only. Do not use these seven rows as headline benchmark claims.**",
+        f"**{warning}**",
         "",
         "| Model | Coverage | Accuracy | Allowed mass | p50 seconds | Peak RAM GiB |",
         "|---|---:|---:|---:|---:|---:|",

@@ -56,6 +56,17 @@ BANKING77 and MASSIVE each have more than 26 intent classes. Core v1 uses 12
 frozen intents from each because the alias contract supports at most 26 options.
 This limit is explicit; the results are not full-dataset intent scores.
 
+## JevBench pilot v1
+
+The time-bounded pilot takes the first 10 frozen rows from each public
+JevBench tier: easy, original, and hard. It contains 30 rows and 180 total
+model decisions.
+
+The pilot uses a fixed 4,096-token context budget. A prompt that exceeds this
+budget is recorded as an invalid prediction and remains in the denominator.
+The pilot was run while the full CPU matrix continued, so its latency and RAM
+numbers are diagnostic rather than controlled performance comparisons.
+
 ## Timing
 
 Model load time is reported separately. Case latency includes prompt rendering,

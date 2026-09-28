@@ -61,6 +61,9 @@ def summarize(rows: list[dict], predictions: list[dict]) -> dict:
             errors.append({"id": row["id"], "status": "missing"})
             continue
         try:
+            if prediction.get("error"):
+                detail = prediction["error"]
+                raise ValueError(f"{detail.get('type', 'Error')}: {detail.get('message', detail)}")
             validate_prediction(prediction, row)
             option_ids = prediction["option_ids"]
             probabilities = prediction["probabilities"]

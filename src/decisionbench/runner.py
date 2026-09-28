@@ -98,3 +98,56 @@ def run_benchmark(benchmark_path: Path, output_dir: Path, engine) -> dict:
     ]
     (output_dir / "SHA256SUMS").write_text("\n".join(hashes) + "\n", encoding="ascii")
     return summary
+
+
+def derive_run(source_run: Path, benchmark_path: Path, output_dir: Path) -> dict:
+    if output_dir.exists():
+        raise ValueError("Derived run output directory must be new")
+    rows = read_jsonl(benchmark_path)
+    source_manifest = json.loads((source_run / "manifest.json").read_text(encoding="utf-8"))
+    source_predictions_path = source_run / "predictions.jsonl"
+    source_predictions = {
+        prediction["id"]: prediction for prediction in _read_predictions(source_predictions_path)
+    }
+    missing = [row["id"] for row in rows if row["id"] not in source_predictions]
+    if missing:
+        raise ValueError(f"Source run is missing {len(missing)} required rows")
+    predictions = [source_predictions[row["id"]] for row in rows]
+    output_dir.mkdir(parents=True)
+    predictions_path = output_dir / "predictions.jsonl"
+    with predictions_path.open("x", encoding="utf-8", newline="\n") as stream:
+        for prediction in predictions:
+            stream.write(json.dumps(prediction, ensure_ascii=False, allow_nan=False) + "\n")
+    manifest = {
+        "schema_version": 1,
+        "status": "complete",
+        "started_at": source_manifest["started_at"],
+        "completed_at": datetime.now(timezone.utc).isoformat(),
+        "benchmark": {
+            "path": str(benchmark_path),
+            "sha256": sha256_file(benchmark_path),
+            "rows": len(rows),
+        },
+        "model": source_manifest["model"],
+        "prediction_rows": len(predictions),
+        "derived_from": {
+            "run": str(source_run),
+            "benchmark_sha256": source_manifest["benchmark"]["sha256"],
+            "predictions_sha256": sha256_file(source_predictions_path),
+        },
+    }
+    _write_json_atomic(output_dir / "manifest.json", manifest)
+    summary = {
+        "overall": summarize(rows, predictions),
+        "datasets": by_dataset(rows, predictions),
+        "robustness": robustness(rows, predictions),
+    }
+    (output_dir / "summary.json").write_text(
+        json.dumps(summary, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+    )
+    hashes = [
+        f"{sha256_file(output_dir / name)}  {name}"
+        for name in ("manifest.json", "predictions.jsonl", "summary.json")
+    ]
+    (output_dir / "SHA256SUMS").write_text("\n".join(hashes) + "\n", encoding="ascii")
+    return summary

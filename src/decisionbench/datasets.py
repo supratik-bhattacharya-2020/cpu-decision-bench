@@ -493,3 +493,22 @@ def build_smoke(core_path: Path, output: Path) -> dict:
             raise ValueError(f"Core suite has no smoke row for {source}") from error
     write_jsonl_create(output, selected)
     return {"rows": len(selected), "output": str(output)}
+
+
+def build_jevbench_pilot(core_path: Path, output: Path, per_tier: int = 10) -> dict:
+    rows = [
+        json.loads(line)
+        for line in core_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    selected = []
+    counts = {}
+    for tier in ("easy", "original", "hard"):
+        tier_rows = [row for row in rows if row["dataset"] == f"jevbench-{tier}"]
+        if len(tier_rows) < per_tier:
+            raise ValueError(f"Need {per_tier} JevBench {tier} rows")
+        chosen = tier_rows[:per_tier]
+        selected.extend(chosen)
+        counts[tier] = len(chosen)
+    write_jsonl_create(output, selected)
+    return {"rows": len(selected), "tiers": counts, "output": str(output)}

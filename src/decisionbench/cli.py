@@ -46,7 +46,12 @@ def report(args) -> int:
     from .report import create_comparison_report, create_report
 
     if args.runs:
-        create_comparison_report(args.runs, args.output, title=args.title)
+        create_comparison_report(
+            args.runs,
+            args.output,
+            title=args.title,
+            warning=args.warning,
+        )
     else:
         create_report(args.gold, args.predictions, args.output)
     return 0
@@ -93,6 +98,10 @@ def main() -> None:
     mode.add_argument("--predictions", type=Path)
     reporter.add_argument("--gold", type=Path)
     reporter.add_argument("--title", default="DecisionBench comparison")
+    reporter.add_argument(
+        "--warning",
+        default="Preliminary results; do not treat a small suite as the full benchmark.",
+    )
     reporter.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.command == "doctor":
